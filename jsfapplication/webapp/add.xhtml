@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<ui:composition template="templates/default.xhtml">
+
+	<ui:define name="content">
+	<h:form>
+		<h:panelGrid columns="2">   
+			<h:outputText value="#{msg.patientFirstNameLabel}: " />
+			<h:inputText id="firstName" value="#{patientBean.patient.firstName}"/>
+			
+			<h:outputText value="#{msg.patientLastNameLabel}: "/>
+			<h:inputText id="lastName" value="#{patientBean.patient.lastName}"/>
+			
+			<h:outputText value="#{msg.patientPeselLabel}: "/>
+			<h:inputText id="pesel" value="#{patientBean.patient.pesel}"/>
+			
+			<h:outputText value="#{msg.patientDateOfBirthLabel}: "/>
+			<h:inputText id="dateOfBirth" value="#{patientBean.patient.dateOfBirth}"/>
+			
+			<h:outputText value="#{msg.patientPhoneNumberLabel}: "/>
+			<h:inputText id="phoneNumber" value="#{patientBean.patient.phoneNumber}"/>
+			
+			<h:outputText value="#{msg.patientWeightLabel}: "/>
+			<h:inputText id="weight" value="#{patientBean.patient.weight}"/>
+			
+			<h:outputText value="#{msg.patientHeightLabel}: "/>
+			<h:inputText id="height" value="#{patientBean.patient.height}"/>
+		</h:panelGrid>
+		
+		<h:commandButton type="submit" value="#{msg.patientFormOKButton}"
+	                action="#{patientBean.addPatient}"/>
+	</h:form>
+	
+	</ui:define>
+	
+</ui:composition>
+</html>

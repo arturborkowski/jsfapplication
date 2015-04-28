@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+  <div>
+	<h:form>
+		
+		  <h:commandButton class="button"  action="showAll?faces-redirect=true" value="#{msg.showAllLabel}" />
+		  
+		  <h:commandButton  class="button" action="add?faces-redirect=true" value="#{msg.patientAddLabel}" />
+		
+		  <h:commandButton  class="button" action="tools?faces-redirect=true" value="#{msg.toolsLabel}" />
+		
+		
+   </h:form>
+  </div>
+</ui:composition>
