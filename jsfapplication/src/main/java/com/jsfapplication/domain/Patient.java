@@ -1,19 +1,29 @@
 package com.jsfapplication.domain;
 
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
+
+
 public class Patient {
 	
-	private String firstName;
-	private String lastName;
-	private String pesel;
-	private String dateOfBirth;
-	private String phoneNumber;
-	private String weight;
-	private String height;
+	@Size(min = 2, max = 50)
+	private String firstName = "";
+	private String lastName = "";
+	private String pesel = "";
+	@Past
+	private Date dateOfBirth = new Date();
+	private String address;
+	private String phoneNumber = "";
+	private String weight = "";
+	private String height = "";
+	private Date addingDate = new Date();
 	
 	
-
-
 
 	public Patient() {}
 	
@@ -43,6 +53,7 @@ public class Patient {
 		this.pesel = pesel;
 	}
 
+	
 	public String getPhoneNumber() {
 		return phoneNumber;
 	}
@@ -51,13 +62,51 @@ public class Patient {
 		this.phoneNumber = phoneNumber;
 	}
 	
-	public String getDateOfBirth() {
+	
+	public String getDateOfBirthString() {
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+		String date = df.format(dateOfBirth);
+		return date;
+	}
+	
+	public Date getAddingDate() {
+		return addingDate;
+	}
+
+
+
+	public void setAddingDate(Date addingDate) {
+		this.addingDate = addingDate;
+	}
+	
+	public String getAddingDateString() {
+		DateFormat df = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+		String date = df.format(addingDate);
+		return date;
+	}
+
+
+
+	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}
 
-	public void setDateOfBirth(String dateOfBirth) {
+	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
+
+	public String getAddress() {
+		return address;
+	}
+
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 
 	public String getWeight() {
 		return weight;

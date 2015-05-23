@@ -24,4 +24,22 @@
       </plugin>
     </plugins>
   </build>
+  
+  <dependencies>
+  
+  	<dependency>
+		<groupId>javax</groupId>
+		<artifactId>javaee-web-api</artifactId>
+		<version>6.0</version>
+		<scope>provided</scope>
+	</dependency>
+	
+  	<dependency>
+		<groupId>org.richfaces</groupId>
+		<artifactId>richfaces</artifactId>
+		<version>4.5.4.Final</version>
+	</dependency>
+  	
+  </dependencies>
+  
 </project>

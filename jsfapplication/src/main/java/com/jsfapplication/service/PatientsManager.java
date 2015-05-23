@@ -1,9 +1,10 @@
 package com.jsfapplication.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
-import javax.faces.bean.ApplicationScoped;
+import javax.enterprise.context.ApplicationScoped;
 
 import com.jsfapplication.domain.Patient;
 
@@ -12,7 +13,8 @@ import com.jsfapplication.domain.Patient;
 @ApplicationScoped
 public class PatientsManager {
 
-	private static List<Patient> db = new ArrayList<Patient>();
+	
+	private List<Patient> db = new ArrayList<Patient>();
 	
 
 	public void addPatient(Patient patient) {
@@ -22,9 +24,11 @@ public class PatientsManager {
 		newPatient.setLastName(patient.getLastName());
 		newPatient.setPesel(patient.getPesel());
 		newPatient.setDateOfBirth(patient.getDateOfBirth());
+		newPatient.setAddress(patient.getAddress());
 		newPatient.setPhoneNumber(patient.getPhoneNumber());
 		newPatient.setWeight(patient.getWeight());
 		newPatient.setHeight(patient.getHeight());
+		newPatient.setAddingDate(new Date());
 		
 		db.add(newPatient);
 	}

@@ -4,34 +4,98 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="templates/default.xhtml">
 
 	<ui:define name="content">
 	   
-		<h:form>
-    
-	     <h:dataTable value="#{patientBean.patients}" var="item">
-	      <f:facet name="header">#{msg.patientAllLabel}</f:facet>
-	      
-	      <h:column>
-	        <f:facet name="header">#{msg.patientFirstNameLabel}</f:facet>
-	        #{item.firstName}
-	      </h:column>
-	      
-	      <h:column>
-	        <f:facet name="header">#{msg.patientLastNameLabel}</f:facet>
-	        #{item.lastName}
-	      </h:column>
-	      
-	      <h:column>
-	        <f:facet name="header">#{msg.patientPeselLabel}</f:facet>
-	        #{item.pesel}
-	      </h:column>
-	      
-	     </h:dataTable>
+	   
+	   <h:form>
+	   		<rich:panel>
+	   			<f:facet name="header">
+		   			<h:outputText value="#{msg.searchLabel}"/>
+		   		</f:facet>
+	   			<h:panelGrid columns="10">
+		   			<h:outputText value="#{msg.patientFirstNameLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.firstName}"/>
+			   		<h:outputText value="#{msg.patientLastNameLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.lastName}"/>
+			   		<h:outputText value="#{msg.patientPeselLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.pesel}"/>
+			   		<h:outputText value="#{msg.patientDateOfBirthLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.dobStart}"/>
+			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.dobFinish}"/>
+			   		<h:outputText value="#{msg.patientWeightLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.weightStart}"/>
+			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.weightFinish}"/>
+			   		<h:outputText value="#{msg.patientHeightLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.heightStart}"/>
+			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.heightFinish}"/>
+			   		<h:outputText value="#{msg.patientAddingDateLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.addingDateStart}"/>
+			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.addingDateFinish}"/>
+			   		<h:commandButton type="submit" value="#{msg.searchingFormSearchButton}" action="#{patientToFindBean.findMatchingRecords}"/>
+			   		<rich:messages ajaxRendered="true"/>
+		   		</h:panelGrid>
+	   		</rich:panel>
+	   		
+	   		
 	   </h:form>
+	   
+	   
+	   
+		
+	     <rich:extendedDataTable value="#{patientToFindBean.patients}" var="item"
+	     						frozenColumns="2" id="table" 
+	     						style="height:300px; width:inherit" 
+	     						selectionMode="none">
+	     						
+		      <f:facet name="header">
+		      	<h:outputText value="#{msg.patientAllLabel}"/>
+		      </f:facet>
+	      
+	     
+	      
+		      <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientFirstNameLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.firstName}"/>
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientLastNameLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.lastName}"/>
+		      </rich:column>
+		      
+		       <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientPeselLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.pesel}"/>
+		      </rich:column>
+		      
+		      <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientWeightLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.weight}"/>
+		      </rich:column>
+	
+		      <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientHeightLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.height}"/>
+		      </rich:column>
+	
+		      <rich:column>
+		        <f:facet name="header">
+		        	<h:outputText value="#{msg.patientAddingDateLabel}"/>
+		        </f:facet>
+		        <h:outputText value="#{item.addingDateString}"/>
+		      </rich:column>
+	      
+	 
+	    </rich:extendedDataTable>
 
 	</ui:define>
 

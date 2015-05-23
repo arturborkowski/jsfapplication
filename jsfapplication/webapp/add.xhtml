@@ -4,30 +4,50 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:h="http://java.sun.com/jsf/html"
-	xmlns:f="http://java.sun.com/jsf/core">
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:rich="http://richfaces.org/rich">
 
 <ui:composition template="templates/default.xhtml">
 
 	<ui:define name="content">
 	<h:form>
+	<f:event listener="#{patientBean.validatePeselAndDateOfBirth}" type="postValidate"></f:event>
+	<rich:panel>
+		<f:facet name="header">
+            <h:outputText value="#{msg.addingNewPatientHeader}" />
+        </f:facet>
+	<rich:messages ajaxRendered="true"/>
+	
 		<h:panelGrid columns="2">   
 			<h:outputText value="#{msg.patientFirstNameLabel}: " />
-			<h:inputText id="firstName" value="#{patientBean.patient.firstName}"/>
+			<h:inputText id="firstName" value="#{patientBean.patient.firstName}" required="#{true}"/>
 			
 			<h:outputText value="#{msg.patientLastNameLabel}: "/>
 			<h:inputText id="lastName" value="#{patientBean.patient.lastName}"/>
 			
 			<h:outputText value="#{msg.patientPeselLabel}: "/>
-			<h:inputText id="pesel" value="#{patientBean.patient.pesel}"/>
+			<h:inputText id="pesel" value="#{patientBean.patient.pesel}"
+							validator="#{patientBean.peselValidator}" required="#{true}"/>
 			
 			<h:outputText value="#{msg.patientDateOfBirthLabel}: "/>
-			<h:inputText id="dateOfBirth" value="#{patientBean.patient.dateOfBirth}"/>
-			
+			<rich:calendar value="#{patientBean.patient.dateOfBirth}"
+					id="dateOfBirth" datePattern="dd-MM-yyyy" showApplyButton="#{true}"
+					cellWidth="24px" cellHeight="22px" style="width:200px" required="#{true}">
+			</rich:calendar>
+		</h:panelGrid>
+		<h:panelGrid columns="2">
+		
+			<h:outputText value="#{msg.patientAddressLabel}"/>
+			<h:inputTextarea id="address" value="#{patientBean.patient.address}"/>
+		
 			<h:outputText value="#{msg.patientPhoneNumberLabel}: "/>
-			<h:inputText id="phoneNumber" value="#{patientBean.patient.phoneNumber}"/>
+			<h:inputText id="phoneNumber" value="#{patientBean.patient.phoneNumber}"
+			validator="#{patientBean.phoneNumberValidator}" />
+			
 			
 			<h:outputText value="#{msg.patientWeightLabel}: "/>
-			<h:inputText id="weight" value="#{patientBean.patient.weight}"/>
+			<h:inputText id="weight" value="#{patientBean.patient.weight}" />
 			
 			<h:outputText value="#{msg.patientHeightLabel}: "/>
 			<h:inputText id="height" value="#{patientBean.patient.height}"/>
@@ -35,6 +55,11 @@
 		
 		<h:commandButton type="submit" value="#{msg.patientFormOKButton}"
 	                action="#{patientBean.addPatient}"/>
+	                
+	                <!-- <h:panelGrid>
+	                	<h:messages showDetail="#{true}" showSummary="#{false}" />
+	                </h:panelGrid> -->
+	</rich:panel>
 	</h:form>
 	
 	</ui:define>

@@ -18,4 +18,14 @@
     <url-pattern>/faces/*</url-pattern>
   </servlet-mapping>
   
+  <servlet-mapping>
+    <servlet-name>Faces Servlet</servlet-name>
+    <url-pattern>*.jsf</url-pattern>
+  </servlet-mapping>
+  
+  <context-param>
+    <param-name>org.richfaces.skin</param-name>
+    <param-value>deepMarine</param-value>
+	</context-param>
+  
 </web-app>
