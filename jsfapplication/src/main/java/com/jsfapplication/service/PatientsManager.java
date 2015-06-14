@@ -1,6 +1,7 @@
 package com.jsfapplication.service;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -35,6 +36,7 @@ public class PatientsManager {
 	
 	
 	public List<Patient> getAllPatients() {
+		Collections.sort(db);
 		return db;
 	}
 

@@ -9,7 +9,7 @@ import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
 
-public class Patient {
+public class Patient implements Comparable<Patient>{
 	
 	@Size(min = 2, max = 50)
 	private String firstName = "";
@@ -122,6 +122,15 @@ public class Patient {
 
 	public void setHeight(String height) {
 		this.height = height;
+	}
+
+
+
+	@Override
+	public int compareTo(Patient o) {
+		String thisFullName = this.lastName+" "+this.firstName;
+		String otherFullName = o.getLastName()+" "+o.getFirstName();
+		return thisFullName.compareToIgnoreCase(otherFullName);
 	}
 
 

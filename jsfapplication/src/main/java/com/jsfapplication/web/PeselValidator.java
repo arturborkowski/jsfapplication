@@ -16,12 +16,12 @@ import com.jsfapplication.service.PatientsManager;
 
 
 @FacesValidator("peselValidator")
-public class PeselValidator implements Validator{
+public class PeselValidator implements Validator {
 
 	@Inject
 	private PatientsManager pm;
 	
-	public void uniquePesel(FacesContext context, UIComponent component,
+	private void uniquePesel(FacesContext context, UIComponent component,
 			Object value) {
 
 		String pesel = (String) value;
@@ -37,7 +37,7 @@ public class PeselValidator implements Validator{
 	}
 	
 	
-	public void peselFormatValidator(FacesContext context, UIComponent component, 
+	private void peselFormatValidator(FacesContext context, UIComponent component, 
 			Object value) {
 		
 		String pesel = (String) value;
@@ -53,7 +53,7 @@ public class PeselValidator implements Validator{
 		
 	}
 	
-	public void peselControlSum(FacesContext context, UIComponent component,
+	private void peselControlSum(FacesContext context, UIComponent component,
 			Object value) {
 		
 		String pesel = (String) value;
@@ -70,7 +70,6 @@ public class PeselValidator implements Validator{
 		else
 			sumaKontr = 0;
 		
-		System.out.println("suma kontr: = " + sumaKontr);
 		if(sumaKontr != peselek[10]) {
 			FacesMessage message = new FacesMessage(
 					"There is an error in pesel. Check it once again.");

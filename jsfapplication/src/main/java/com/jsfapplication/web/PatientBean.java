@@ -93,66 +93,6 @@ public class PatientBean implements Serializable {
 	}
 	
 	
-	public void uniquePesel(FacesContext context, UIComponent component,
-			Object value) {
-
-		String pesel = (String) value;
-
-		for (Patient patient : pm.getAllPatients()) {
-			if (patient.getPesel().equalsIgnoreCase(pesel)) {
-				FacesMessage message = new FacesMessage(
-						"Person with this PESEL already exists in database");
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				throw new ValidatorException(message);
-			}
-		}
-	}
-	
-	
-	public void peselValidator(FacesContext context, UIComponent component, 
-			Object value) {
-		
-		String pesel = (String) value;
-		Pattern pattern = Pattern.compile("\\d{11}");
-		Matcher match = pattern.matcher(pesel);
-		
-		if(match.find()) {
-			uniquePesel(context, component, value);
-			peselControlSum(context, component, value);
-		} else {
-			FacesMessage message = new FacesMessage(
-					"Pesel must contain 11 digits.");
-			message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(message);
-		}
-		
-	}
-	
-	public void peselControlSum(FacesContext context, UIComponent component,
-			Object value) {
-		
-		String pesel = (String) value;
-		int[] peselek = new int[11];
-		for(int i = 0; i < 11; i++) {
-			peselek[i] = Character.getNumericValue(pesel.charAt(i));
-		}
-		
-		int suma = peselek[0]+3*peselek[1]+7*peselek[2]+9*peselek[3]+peselek[4]
-				+3*peselek[5]+7*peselek[6]+9*peselek[7]+peselek[8]+3*peselek[9];
-		int sumaKontr = suma%10;
-		if(sumaKontr != 0)
-			sumaKontr = 10 - sumaKontr;
-		else
-			sumaKontr = 0;
-		
-		if(sumaKontr != peselek[10]) {
-			FacesMessage message = new FacesMessage(
-					"There is an error in pesel. Check it once again.");
-			message.setSeverity(FacesMessage.SEVERITY_ERROR);
-			throw new ValidatorException(message);
-		}
-	}
-
 	
 	public void phoneNumberValidator(FacesContext context, UIComponent component,
 			Object value) {

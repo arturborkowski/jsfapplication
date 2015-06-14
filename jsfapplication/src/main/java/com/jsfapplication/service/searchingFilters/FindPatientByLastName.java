@@ -1,10 +1,7 @@
-package com.jsfapplication.service;
+package com.jsfapplication.service.searchingFilters;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 
 import com.jsfapplication.domain.Patient;
 import com.jsfapplication.domain.PatientToFind;
@@ -23,16 +20,18 @@ public class FindPatientByLastName implements IPatientFinder {
 			
 			if(ptf.getLastName().equals(p.getLastName())) 				
 				matches.add(p);
-			else {
-				System.out.println("Nie ma recordu po nazwisku.");
-				FacesContext facesContext = FacesContext.getCurrentInstance();	
-				FacesMessage message = new FacesMessage("Matches not found.");
-				message.setSeverity(FacesMessage.SEVERITY_ERROR);
-				facesContext.addMessage("", message);
-			}
 		}
 		
 		return matches;
+	}
+
+	
+	@Override
+	public boolean canDoSearch(PatientToFind ptf) {
+		if(ptf.getLastName().length()>0)
+			return true;
+		else
+			return false;
 	}
 
 }

@@ -19,17 +19,43 @@
 		   			<h:outputText value="#{msg.searchLabel}"/>
 		   		</f:facet>
 	   			<h:panelGrid columns="10">
-		   			<h:outputText value="#{msg.patientFirstNameLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.firstName}"/>
-			   		<h:outputText value="#{msg.patientLastNameLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.lastName}"/>
-			   		<h:outputText value="#{msg.patientPeselLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.pesel}"/>
-			   		<h:outputText value="#{msg.patientDateOfBirthLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.dobStart}"/>
-			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.dobFinish}"/>
-			   		<h:outputText value="#{msg.patientWeightLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.weightStart}"/>
-			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.weightFinish}"/>
-			   		<h:outputText value="#{msg.patientHeightLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.heightStart}"/>
-			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.heightFinish}"/>
-			   		<h:outputText value="#{msg.patientAddingDateLabel} #{msg.fromLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.addingDateStart}"/>
-			   		<h:outputText value="#{msg.toLabel}: "/> <h:inputText value="#{patientToFindBean.patientToFind.addingDateFinish}"/>
+		   			<h:outputText value="#{msg.patientFirstNameLabel}: "/> 
+		   			<h:inputText value="#{patientToFindBean.patientToFind.firstName}"/>
+		   			
+			   		<h:outputText value="#{msg.patientLastNameLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.lastName}"/>
+			   		
+			   		<h:outputText value="#{msg.patientPeselLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.pesel}"/>
+			   		
+			   		<h:outputText value="#{msg.patientDateOfBirthLabel} #{msg.fromLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.dobStart}" 
+			   			validator="#{patientToFindBean.dateFormatValidator}"/>
+			   		
+			   		<h:outputText value="#{msg.toLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.dobFinish}"
+			   			validator="#{patientToFindBean.dateFormatValidator}"/>
+			   		
+			   		<h:outputText value="#{msg.patientWeightLabel} #{msg.fromLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.weightStart}"/>
+			   		
+			   		<h:outputText value="#{msg.toLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.weightFinish}"/>
+			   		
+			   		<h:outputText value="#{msg.patientHeightLabel} #{msg.fromLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.heightStart}"/>
+			   		
+			   		<h:outputText value="#{msg.toLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.heightFinish}"/>
+			   		
+			   		<h:outputText value="#{msg.patientAddingDateLabel} #{msg.fromLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.addingDateStart}"
+			   			validator="#{patientToFindBean.dateFormatValidator}"/>
+			   		
+			   		<h:outputText value="#{msg.toLabel}: "/> 
+			   		<h:inputText value="#{patientToFindBean.patientToFind.addingDateFinish}"
+			   			validator="#{patientToFindBean.dateFormatValidator}"/>
+			   		
 			   		<h:commandButton type="submit" value="#{msg.searchingFormSearchButton}" action="#{patientToFindBean.findMatchingRecords}"/>
 			   		<rich:messages ajaxRendered="true"/>
 		   		</h:panelGrid>
@@ -40,62 +66,77 @@
 	   
 	   
 	   
-		
+		<h:form id="sorting">
 	     <rich:extendedDataTable value="#{patientToFindBean.patients}" var="item"
 	     						frozenColumns="2" id="table" 
 	     						style="height:300px; width:inherit" 
 	     						selectionMode="none">
-	     						
+	     					
 		      <f:facet name="header">
-		      	<h:outputText value="#{msg.patientAllLabel}"/>
+		      	<a4j:commandLink  value="#{msg.patientAllLabel}"/>
 		      </f:facet>
-	      
+	      	
 	     
 	      
 		      <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientFirstNameLabel}"/>
+		        	<a4j:commandLink action="#{patientToFindBean.findMatchingRecords}" value="#{msg.patientFirstNameLabel}" 
+		        						actionListener="#{patientToFindBean.sortTable}">
+		        		<f:param name="sortParam" value="fn" />
+		        	</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.firstName}"/>
 		      </rich:column>
 		      
 		      <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientLastNameLabel}"/>
+		        	<a4j:commandLink action="#{patientToFindBean.findMatchingRecords}" value="#{msg.patientLastNameLabel}"
+		        							actionListener="#{patientToFindBean.sortTable}">
+		        		<f:param name="sortParam" value="ln" />
+		        	</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.lastName}"/>
 		      </rich:column>
 		      
 		       <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientPeselLabel}"/>
+		        	<a4j:commandLink value="#{msg.patientPeselLabel}" action="#{patientToFindBean.findMatchingRecords}" actionListener="#{patientToFindBean.sortTable}" >
+		        		<f:param name="sortParam" value="pesel"/>
+		        	</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.pesel}"/>
 		      </rich:column>
 		      
 		      <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientWeightLabel}"/>
+		        	<a4j:commandLink value="#{msg.patientWeightLabel}" action="#{patientToFindBean.findMatchingRecords}" actionListener="#{patientToFindBean.sortTable}">
+		        		<f:param name="sortParam" value="weight"/>
+		        	</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.weight}"/>
 		      </rich:column>
 	
 		      <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientHeightLabel}"/>
+		        	<a4j:commandLink value="#{msg.patientHeightLabel}" action="#{patientToFindBean.findMatchingRecords}" actionListener="#{patientToFindBean.sortTable}">
+		        		<f:param name="sortParam" value="height"/>
+		        	</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.height}"/>
 		      </rich:column>
 	
 		      <rich:column>
 		        <f:facet name="header">
-		        	<h:outputText value="#{msg.patientAddingDateLabel}"/>
+		        	<a4j:commandLink value="#{msg.patientAddingDateLabel}" action="#{patientToFindBean.findMatchingRecords}" actionListener="#{patientToFindBean.sortTable}">
+						<f:param name="sortParam" value="doa"/>
+					</a4j:commandLink>
 		        </f:facet>
 		        <h:outputText value="#{item.addingDateString}"/>
 		      </rich:column>
 	      
 	 
 	    </rich:extendedDataTable>
+	    </h:form>
 
 	</ui:define>
 

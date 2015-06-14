@@ -28,7 +28,9 @@
 			
 			<h:outputText value="#{msg.patientPeselLabel}: "/>
 			<h:inputText id="pesel" value="#{patientBean.patient.pesel}"
-							validator="#{patientBean.peselValidator}" required="#{true}"/>
+							 required="#{true}">
+							<f:validator validatorId="peselValidator"/>
+			</h:inputText>
 			
 			<h:outputText value="#{msg.patientDateOfBirthLabel}: "/>
 			<rich:calendar value="#{patientBean.patient.dateOfBirth}"
