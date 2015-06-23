@@ -17,42 +17,53 @@
 		<f:facet name="header">
             <h:outputText value="#{msg.addingNewPatientHeader}" />
         </f:facet>
-	<rich:messages ajaxRendered="true"/>
 	
-		<h:panelGrid columns="2">   
+		<h:panelGrid columns="3">   
 			<h:outputText value="#{msg.patientFirstNameLabel}: " />
-			<h:inputText id="firstName" value="#{patientBean.patient.firstName}" required="#{true}"/>
+			<h:inputText id="firstName" value="#{patientBean.patient.firstName}" required="#{true}" >
+				<f:ajax execute="@this" render="messages beanState" />
+			</h:inputText>
+			<rich:message for="firstName" ajaxRendered="true" />
 			
 			<h:outputText value="#{msg.patientLastNameLabel}: "/>
 			<h:inputText id="lastName" value="#{patientBean.patient.lastName}"/>
+			<rich:message for="lastName" ajaxRendered="true" />
 			
 			<h:outputText value="#{msg.patientPeselLabel}: "/>
 			<h:inputText id="pesel" value="#{patientBean.patient.pesel}"
 							 required="#{true}">
 							<f:validator validatorId="peselValidator"/>
+							<f:ajax execute="@this" render="messages beanState" event="keyup"/>
 			</h:inputText>
+			<rich:message for="pesel" ajaxRendered="true" />
 			
 			<h:outputText value="#{msg.patientDateOfBirthLabel}: "/>
 			<rich:calendar value="#{patientBean.patient.dateOfBirth}"
 					id="dateOfBirth" datePattern="dd-MM-yyyy" showApplyButton="#{true}"
 					cellWidth="24px" cellHeight="22px" style="width:200px" required="#{true}">
+					<f:ajax execute="@this" render="messages beanState" />
 			</rich:calendar>
-		</h:panelGrid>
-		<h:panelGrid columns="2">
+			<rich:message for="dateOfBirth" ajaxRendered="true" />
 		
 			<h:outputText value="#{msg.patientAddressLabel}"/>
 			<h:inputTextarea id="address" value="#{patientBean.patient.address}"/>
+			<rich:message for="address" ajaxRendered="true" />
 		
 			<h:outputText value="#{msg.patientPhoneNumberLabel}: "/>
 			<h:inputText id="phoneNumber" value="#{patientBean.patient.phoneNumber}"
-			validator="#{patientBean.phoneNumberValidator}" />
+						validator="#{patientBean.phoneNumberValidator}" >
+				<f:ajax execute="@this" render="messages beanState" event="keyup"/>
+			</h:inputText>
+			<rich:message for="phoneNumber" ajaxRendered="true" />
 			
 			
 			<h:outputText value="#{msg.patientWeightLabel}: "/>
 			<h:inputText id="weight" value="#{patientBean.patient.weight}" />
+			<rich:message for="weight" ajaxRendered="true" />
 			
 			<h:outputText value="#{msg.patientHeightLabel}: "/>
 			<h:inputText id="height" value="#{patientBean.patient.height}"/>
+			<rich:message for="height" ajaxRendered="true" />
 		</h:panelGrid>
 		
 		<h:commandButton type="submit" value="#{msg.patientFormOKButton}"

@@ -5,12 +5,22 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.NamedQuery;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Size;
 
-
+@Entity
+@NamedQuery(name = "patient.all", query = "Select p from Patient p")
 public class Patient implements Comparable<Patient>{
 	
+	
+	private Long id;	
 	@Size(min = 2, max = 50)
 	private String firstName = "";
 	private String lastName = "";
@@ -28,7 +38,19 @@ public class Patient implements Comparable<Patient>{
 	public Patient() {}
 	
 	
-	
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	public Long getId() {
+		return id;
+	}
+
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+
+
 	public String getFirstName() {
 		return firstName;
 	}
@@ -69,6 +91,7 @@ public class Patient implements Comparable<Patient>{
 		return date;
 	}
 	
+	@Temporal(value = TemporalType.DATE)
 	public Date getAddingDate() {
 		return addingDate;
 	}
@@ -86,7 +109,7 @@ public class Patient implements Comparable<Patient>{
 	}
 
 
-
+	@Temporal(value = TemporalType.DATE)
 	public Date getDateOfBirth() {
 		return dateOfBirth;
 	}

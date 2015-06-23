@@ -1,43 +1,37 @@
 package com.jsfapplication.service;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
+
 import java.util.List;
 
-import javax.enterprise.context.ApplicationScoped;
+
+import javax.ejb.Stateless;
+/*import javax.enterprise.context.ApplicationScoped;*/
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 
 import com.jsfapplication.domain.Patient;
 
 
-
-@ApplicationScoped
+@Stateless	
 public class PatientsManager {
-
 	
-	private List<Patient> db = new ArrayList<Patient>();
+	@PersistenceContext
+	EntityManager em;
 	
-
 	public void addPatient(Patient patient) {
-		Patient newPatient = new Patient();
-		
-		newPatient.setFirstName(patient.getFirstName());
-		newPatient.setLastName(patient.getLastName());
-		newPatient.setPesel(patient.getPesel());
-		newPatient.setDateOfBirth(patient.getDateOfBirth());
-		newPatient.setAddress(patient.getAddress());
-		newPatient.setPhoneNumber(patient.getPhoneNumber());
-		newPatient.setWeight(patient.getWeight());
-		newPatient.setHeight(patient.getHeight());
-		newPatient.setAddingDate(new Date());
-		
-		db.add(newPatient);
+		patient.setId(null);
+		em.persist(patient);
 	}
 	
+	public void deletePerson(Patient patient) {
+		patient = em.find(Patient.class, patient.getId());
+		em.remove(patient);
+	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Patient> getAllPatients() {
-		Collections.sort(db);
-		return db;
+		return em.createNamedQuery("patient.all").getResultList();
 	}
-
+	
 }
+
